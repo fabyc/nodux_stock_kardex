@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="kardex_view_tree">
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="10"/>
+            <field name="name">move_tree</field>
+        </record>
+        <record model="ir.action.act_window" id="act_kardex_form">
+            <field name="name">Kardex</field>
+            <field name="res_model">stock.move</field>
+            <field name="search_value">[('create_date', '>=', DateTime(hour=0, minute=0, second=0, microsecond=0, delta_years=-1))]</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_kardex_form_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="kardex_view_tree"/>
+            <field name="act_window" ref="act_kardex_form"/>
+        </record>
+
+        <record model="ir.action.act_window.domain" id="act_kardex_form_domain_to_customer">
+            <field name="name">Salidas</field>
+            <field name="sequence" eval="30"/>
+            <field name="domain">[('to_location.type', '=', 'customer')]</field>
+            <field name="act_window" ref="act_kardex_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_kardex_form_domain_from_supplier">
+            <field name="name">Entradas</field>
+            <field name="sequence" eval="40"/>
+            <field name="domain">[('from_location.type', '=', 'supplier')]</field>
+            <field name="act_window" ref="act_kardex_form"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_kardex_form_domain_all">
+            <field name="name">Kardex</field>
+            <field name="sequence" eval="60"/>
+            <field name="domain">[('origin', 'in', ('purchase.line', 'sale.line'))]</field>
+            <field name="act_window" ref="act_kardex_form"/>
+        </record>
+        <menuitem parent="stock.menu_stock" sequence="40"
+            action="act_kardex_form" id="menu_kardex_form"/>
+    </data>
+</tryton>
