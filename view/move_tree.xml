@@ -9,6 +9,7 @@ this repository contains the full copyright notices and license terms. -->
     <field name="unit_price"/>
     <field name="cost_price"/>
     <field name="effective_date"/>
+    <field name="estado"/>
     <!--field name="company"/-->
     <!--field name="state"/-->
     <!--field name="origin"/-->
