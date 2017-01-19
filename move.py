@@ -29,7 +29,6 @@ class Move():
     def __setup__(cls):
         super(Move, cls).__setup__()
 
-
     @classmethod
     def get_estado(cls, moves, names):
         pool = Pool()
@@ -38,8 +37,18 @@ class Move():
         result = {n: {m.id: Decimal(0) for m in moves} for n in names}
         for name in names:
             for move in moves:
-                if move.to_location.type == 'customer':
-                    result[name][move.id] = 'Salida'
+                if move.shipment:
+                    if "internal" in str(move.shipment):
+                        result[name][move.id] = 'Interno'
+                    else:
+                        if move.to_location.type == 'customer':
+                            result[name][move.id] = 'Salida'
+                        else:
+                            result[name][move.id] = 'Entrada'
                 else:
-                    result[name][move.id] = 'Entrada'
+                    if move.to_location.type == 'customer':
+                        result[name][move.id] = 'Salida'
+                    else:
+                        result[name][move.id] = 'Entrada'
+
         return result

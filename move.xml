@@ -36,6 +36,13 @@ this repository contains the full copyright notices and license terms. -->
             <field name="act_window" ref="act_kardex_form"/>
         </record>
 
+        <record model="ir.action.act_window.domain" id="act_kardex_form_domain_internal">
+            <field name="name">Movimientos Internos</field>
+            <field name="sequence" eval="40"/>
+            <field name="domain">[('internal', '=', True)]</field>
+            <field name="act_window" ref="act_kardex_form"/>
+        </record>
+
         <record model="ir.action.act_window.domain" id="act_kardex_form_domain_all">
             <field name="name">Kardex</field>
             <field name="sequence" eval="60"/>
