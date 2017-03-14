@@ -13,7 +13,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window" id="act_kardex_form">
             <field name="name">Kardex</field>
             <field name="res_model">stock.move</field>
-            <field name="search_value">[('create_date', '>=', DateTime(hour=0, minute=0, second=0, microsecond=0, delta_years=-1))]</field>
+            <field name="search_value"></field>
         </record>
 
         <record model="ir.action.act_window.view" id="act_kardex_form_view1">
@@ -25,21 +25,29 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window.domain" id="act_kardex_form_domain_to_customer">
             <field name="name">Salidas</field>
             <field name="sequence" eval="30"/>
-            <field name="domain">[('to_location.type', '=', 'customer')]</field>
+            <field name="domain" eval="[('to_location.type', '=', 'customer')]" pyson="1"/>
             <field name="act_window" ref="act_kardex_form"/>
         </record>
 
         <record model="ir.action.act_window.domain" id="act_kardex_form_domain_from_supplier">
             <field name="name">Entradas</field>
             <field name="sequence" eval="40"/>
-            <field name="domain">[('from_location.type', '=', 'supplier')]</field>
+            <field name="domain" eval="[('from_location.type', '=', 'supplier')]" pyson="1"/>
+            <field name="act_window" ref="act_kardex_form"/>
+        </record>
+
+        <record model="ir.action.act_window.domain" id="act_kardex_form_domain_internal">
+            <field name="name">Movimientos Internos</field>
+            <field name="sequence" eval="40"/>
+            <field name="domain" eval="[('internal', '=', True)]" pyson="1"/>
             <field name="act_window" ref="act_kardex_form"/>
         </record>
 
         <record model="ir.action.act_window.domain" id="act_kardex_form_domain_all">
             <field name="name">Kardex</field>
             <field name="sequence" eval="60"/>
-            <field name="domain">[('unit_price', '!=',None), ('from_location.type', '!=', 'customer'), ('origin', '!=', None)] </field>
+            <field name="domain" eval="[('unit_price', '!=',None), ('from_location.type', '!=', 'customer'), ('origin', '!=', None)]" pyson="1"/>
+            <!-- <field name="domain">[('unit_price', '!=',None), ('from_location.type', '!=', 'customer'), ('internal', 'in', [True, False])] </field> -->
             <field name="act_window" ref="act_kardex_form"/>
         </record>
         <menuitem parent="stock.menu_stock" sequence="40"
