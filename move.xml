@@ -47,6 +47,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="name">Kardex</field>
             <field name="sequence" eval="60"/>
             <field name="domain">[('unit_price', '!=',None), ('from_location.type', '!=', 'customer'), ('origin', '!=', None)] </field>
+            <!-- <field name="domain">[('unit_price', '!=',None), ('from_location.type', '!=', 'customer'), ('internal', 'in', [True, False])] </field> -->
             <field name="act_window" ref="act_kardex_form"/>
         </record>
         <menuitem parent="stock.menu_stock" sequence="40"
